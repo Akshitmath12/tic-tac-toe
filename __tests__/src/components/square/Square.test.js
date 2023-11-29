@@ -3,27 +3,26 @@
 // Square.test.js
 // Located under __tests__/src/components/square
 
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Square from '../../../src/components/square/Square';
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Square from "../../../../src/components/square/Square";
 
-describe('Square component', () => {
-  test('renders without crashing', () => {
+describe("Square component", () => {
+  test("renders without crashing", () => {
     const { getByRole } = render(<Square />);
-    expect(getByRole('button')).toBeInTheDocument();
+    expect(getByRole("button")).toBeInTheDocument();
   });
 
-  test('displays value prop correctly', () => {
+  test("displays value prop correctly", () => {
     const { getByText } = render(<Square value='X' />);
-    expect(getByText('X')).toBeInTheDocument();
+    expect(getByText("X")).toBeInTheDocument();
   });
 
-  test('calls onClick prop when clicked', () => {
+  test("calls onClick prop when clicked", () => {
     const handleClick = jest.fn();
     const { getByRole } = render(<Square onClick={handleClick} />);
-    fireEvent.click(getByRole('button'));
+    fireEvent.click(getByRole("button"));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
-

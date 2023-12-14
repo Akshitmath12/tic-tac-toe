@@ -14,7 +14,10 @@ describe("Board Component", () => {
     const { getAllByRole } = render(
       <Board squares={squares} onClick={jest.fn()} jumpTo={jest.fn()} />
     );
-    expect(getAllByRole("button")).toHaveLength(9); // Assuming each Square is a button
+    const squareButtons = getAllByRole("button").filter(
+      (button) => !button.classList.contains("restart")
+    );
+    expect(squareButtons).toHaveLength(9);
   });
 
   test("passes the correct value to each square", () => {
@@ -22,9 +25,10 @@ describe("Board Component", () => {
     const { getAllByRole } = render(
       <Board squares={squares} onClick={jest.fn()} jumpTo={jest.fn()} />
     );
-    const renderedSquares = getAllByRole("button");
+    const renderedSquares = getAllByRole("button").slice(0, 9);
     renderedSquares.forEach((square, i) => {
-      expect(square).toHaveTextContent(squares[i]);
+      const expectedContent = squares[i] === null ? "" : squares[i];
+      expect(square).toHaveTextContent(expectedContent);
     });
   });
 

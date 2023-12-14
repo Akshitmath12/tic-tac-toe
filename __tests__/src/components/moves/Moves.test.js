@@ -3,18 +3,23 @@
 import React from "react";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import Moves from "../../../../src/components/moves/Moves";
+import "@testing-library/jest-dom/extend-expect";
 
 // We use describe to create a test suite for our Moves component
 describe("Moves", () => {
   // afterEach hook to clean up after each test case
   afterEach(cleanup);
-
   test("renders without crashing", () => {
-    render(<Moves history={[]} jumpTo={() => {}} />);
-    const movesElement = screen.getByTestId("moves");
-    expect(movesElement).toBeInTheDocument();
-  });
+    const history = [];
+    const jumpTo = jest.fn();
+    render(<Moves history={history} jumpTo={jumpTo} />);
 
+    // Assuming the button structure is consistent and you want to target the first button
+    const buttons = document.querySelectorAll("button");
+    const firstButton = buttons[0];
+
+    expect(firstButton).toBeInTheDocument();
+  });
   test("renders correct number of moves", () => {
     const mockHistory = [{}, {}, {}]; // Assuming each move is represented by an object
     render(<Moves history={mockHistory} jumpTo={() => {}} />);
